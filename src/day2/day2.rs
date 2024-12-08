@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 use std::str::FromStr;
 
 pub fn part_1() {
