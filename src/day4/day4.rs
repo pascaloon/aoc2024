@@ -77,6 +77,58 @@ fn test_line(map: &CharMap, pos:(i32, i32), delta: (i32, i32)) -> bool {
     true
 }
 
+static WORD2: &[u8] = b"MAS";
+
+pub fn part_2() {
+    let content = include_str!("day4.txt");
+    println!("{}", part_2_inner(content));
+}
+
+fn part_2_inner(data: &str) -> i32 {
+    let map = CharMap::fom_str(data);
+
+    assert_eq!(WORD2.len(), 3);
+    let first_letter = *WORD2.iter().next().unwrap() as char;
+    let center_letter = *WORD2.iter().skip(1).next().unwrap() as char;
+    let last_letter = *WORD2.iter().skip(2).next().unwrap() as char;
+
+    let mut total_count = 0;
+    for y in 0..map.height {
+        for x in 0..map.width {
+            let c = map.get_char(x, y);
+            if c != center_letter {
+                continue
+            }
+
+            let diag1 = {
+                let (x1, y1) = (x + 1, y - 1);
+                let (x2, y2) = (x - 1, y + 1);
+                let c1 = map.get_char(x1, y1);
+                let c2 = map.get_char(x2, y2);
+                (c1 == first_letter && c2 == last_letter)
+                || (c1 == last_letter && c2 == first_letter)
+            };
+
+            let diag2 = {
+                let (x1, y1) = (x + 1, y + 1);
+                let (x2, y2) = (x - 1, y - 1);
+                let c1 = map.get_char(x1, y1);
+                let c2 = map.get_char(x2, y2);
+                (c1 == first_letter && c2 == last_letter)
+                || (c1 == last_letter && c2 == first_letter)
+            };
+
+            if diag1 && diag2 {
+                total_count += 1;
+            }
+
+
+        }
+    }
+
+    total_count
+}
+
 struct CharMap<'a> {
     data: &'a[u8],
     pub width: i32,
@@ -125,9 +177,9 @@ MXMXAXMASX"#;
         assert_eq!(part_1_inner(CONTENT), 18);
     }
 
-    // #[test]
-    // fn test_part_2() {
-    //     assert_eq!(crate::day3::day3::part_2_inner(CONTENT2), 48);
-    // }
+    #[test]
+    fn test_part_2() {
+        assert_eq!(part_2_inner(CONTENT), 9);
+    }
 }
 
