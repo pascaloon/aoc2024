@@ -1,0 +1,9 @@
+num = { ASCII_DIGIT+ }
+
+rule = { num ~ "|" ~ num }
+rules = { (rule ~ NEWLINE)+ }
+
+order = { (num ~ ",")* ~ num }
+orders = { (order ~ NEWLINE*)+ }
+
+input = { SOI ~ rules ~ NEWLINE ~ orders ~ EOI }
