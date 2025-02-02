@@ -1,4 +1,5 @@
 use std::iter::Iterator;
+use crate::utils::CharMap;
 
 #[warn(dead_code)]
 
@@ -10,7 +11,7 @@ pub fn part_1() {
 }
 
 fn part_1_inner(data: &str) -> i32 {
-    let map = CharMap::fom_str(data);
+    let map = CharMap::from_str(data);
 
     let first_letter = *WORD.iter().next().unwrap() as char;
 
@@ -85,7 +86,7 @@ pub fn part_2() {
 }
 
 fn part_2_inner(data: &str) -> i32 {
-    let map = CharMap::fom_str(data);
+    let map = CharMap::from_str(data);
 
     assert_eq!(WORD2.len(), 3);
     let first_letter = *WORD2.iter().next().unwrap() as char;
@@ -129,33 +130,6 @@ fn part_2_inner(data: &str) -> i32 {
     total_count
 }
 
-struct CharMap<'a> {
-    data: &'a[u8],
-    pub width: i32,
-    pub height: i32
-}
-
-impl CharMap<'_> {
-    pub fn fom_str(data: &str) -> CharMap {
-        let width = data.lines().next().unwrap().len() as i32;
-        let height = data.lines().count() as i32;
-        let data = data.as_bytes();
-        CharMap { data, width, height }
-    }
-
-    pub fn get_char(&self, x: i32, y: i32) -> char {
-        match (x, y) {
-            (_, _) if x < 0 => '\0',
-            (_, _) if x >= self.width => '\0',
-            (_, _) if y < 0 => '\0',
-            (_, _) if y >= self.height => '\0',
-            (_, _) => {
-                let i = (y * (self.width + 1)) + x; // +1 for the \n chars
-                *self.data.get(i as usize).unwrap() as char
-            }
-        }
-    }
-}
 
 #[cfg(test)]
 mod tests {
