@@ -14,6 +14,21 @@ where T: Copy {
             }
         }
     }
-    
+
     results
+}
+
+pub trait MyVecUtils<T>
+where T: Copy {
+    fn add_repeated(&mut self, count: u32, value: T);
+}
+impl<T> MyVecUtils<T> for Vec<T>
+where T: Copy {
+    fn add_repeated(&mut self, count: u32, value: T)
+     {
+         self.reserve(count as usize);
+        for _ in 0..count {
+            self.push(value);
+        }
+    }
 }

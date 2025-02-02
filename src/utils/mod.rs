@@ -5,3 +5,4 @@ pub mod multimap;
 pub use charmap::CharMap;
 pub use stuff::add_tuple;
 pub use stuff::permutate;
+pub use stuff::MyVecUtils;
