@@ -26,35 +26,35 @@ fn part_1_inner(data: &str) -> i32 {
             // X found, probe for word
             let pos = (x, y);
             if test_line(&map,pos, (1, 0)) {
-                println!("(1, 0)");
+                // println!("(1, 0)");
                 total_count += 1;
             }
             if test_line(&map,pos, (1, 1)) {
-                println!("(1, 1)");
+                // println!("(1, 1)");
                 total_count += 1;
             }
             if test_line(&map,pos, (0, 1)) {
-                println!("(0, 1)");
+                // println!("(0, 1)");
                 total_count += 1;
             }
             if test_line(&map,pos, (-1, 1)) {
-                println!("(-1, 1)");
+                // println!("(-1, 1)");
                 total_count += 1;
             }
             if test_line(&map,pos, (-1, 0)) {
-                println!("(-1, 0)");
+                // println!("(-1, 0)");
                 total_count += 1;
             }
             if test_line(&map,pos, (-1, -1)) {
-                println!("(-1, -1)");
+                // println!("(-1, -1)");
                 total_count += 1;
             }
             if test_line(&map,pos, (0, -1)) {
-                println!("(0, -1)");
+                // println!("(0, -1)");
                 total_count += 1;
             }
             if test_line(&map,pos, (1, -1)) {
-                println!("(1, -1)");
+                // println!("(1, -1)");
                 total_count += 1;
             }
         }
