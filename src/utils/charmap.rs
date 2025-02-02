@@ -15,10 +15,7 @@ impl CharMap<'_> {
 
     pub fn get_char(&self, x: i32, y: i32) -> char {
         match (x, y) {
-            (_, _) if x < 0 => '\0',
-            (_, _) if x >= self.width => '\0',
-            (_, _) if y < 0 => '\0',
-            (_, _) if y >= self.height => '\0',
+            (_, _) if !self.is_inside(x, y) => '\0',
             (_, _) => {
                 let i = (y * (self.width + 1)) + x; // +1 for the \n chars
                 if self.overrides.len() > 0 {
@@ -32,16 +29,23 @@ impl CharMap<'_> {
         }
     }
 
+    pub fn is_inside(&self, x: i32, y: i32) -> bool {
+        match (x, y) {
+            _ if x < 0 => false,
+            _ if x >= self.width => false,
+            _ if y < 0 => false,
+            _ if y >= self.height => false,
+            _ => true
+        }
+    }
+
     pub fn set_override(&mut self, x: i32, y: i32, v: char) {
         if self.overrides.is_empty() {
             self.overrides = vec!['\0' as u8; ((self.width+1) * self.height) as usize];
         }
 
         match (x, y) {
-            (_, _) if x < 0 => panic!("Out of Bound!"),
-            (_, _) if x >= self.width => panic!("Out of Bound!"),
-            (_, _) if y < 0 => panic!("Out of Bound!"),
-            (_, _) if y >= self.height => panic!("Out of Bound!"),
+            (_, _) if !self.is_inside(x, y) => panic!("Out of Bound!"),
             (_, _) => {
                 let i = (y * (self.width + 1)) + x; // +1 for the \n chars
                 self.overrides[i as usize] = v as u8;
