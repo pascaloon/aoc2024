@@ -86,7 +86,7 @@ fn get_middle_number(seq: &Vec<i32>) -> i32 {
 
 fn is_valid_dumb(seq: &Vec<i32>, input: &InputData) -> bool {
     // very simple and dumb impl -> NO TRANSITIVITY
-    let mut allowed_exceptions = Vec::with_capacity(seq.len() - 1);
+    let allowed_exceptions = Vec::with_capacity(seq.len() - 1);
     for (i, v) in seq.iter().copied().enumerate() {
         for (l, r) in input.rules.iter().copied() {
             if r == v && !allowed_exceptions.contains(&l) {

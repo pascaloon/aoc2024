@@ -1,7 +1,7 @@
+#![allow(unused)]
+
 use std::iter::Iterator;
 use crate::utils::CharMap;
-
-#[warn(dead_code)]
 
 static WORD: &[u8] = b"XMAS";
 
